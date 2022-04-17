@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="ru"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>SessionStorage.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">Classwork</a> &gt; <a href="index.source.html" class="el_package">web.person.service</a> &gt; <span class="el_source">SessionStorage.java</span></div><h1>SessionStorage.java</h1><pre class="source lang-java linenums">package web.person.service;
+
+import web.person.core.dto.Person;
+import web.person.service.IStorage;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+
+
+<span class="nc" id="L11">public class SessionStorage implements IStorage {</span>
+
+    public static final String SESSION_ATTRIBUTE_NAME = &quot;person&quot;;
+
+    @Override
+    public void create(HttpServletRequest req, HttpServletResponse resp, Person person) {
+<span class="nc" id="L17">        HttpSession session = req.getSession();</span>
+<span class="nc" id="L18">        session.setAttribute(SESSION_ATTRIBUTE_NAME, person);</span>
+<span class="nc" id="L19">    }</span>
+
+    @Override
+    public Person get(HttpServletRequest req) {
+<span class="nc" id="L23">        HttpSession session = req.getSession();</span>
+<span class="nc" id="L24">        return  (Person) session.getAttribute(SESSION_ATTRIBUTE_NAME);</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>

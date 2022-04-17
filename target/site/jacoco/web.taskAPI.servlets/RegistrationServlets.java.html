@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="ru"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>RegistrationServlets.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">Classwork</a> &gt; <a href="index.source.html" class="el_package">web.taskAPI.servlets</a> &gt; <span class="el_source">RegistrationServlets.java</span></div><h1>RegistrationServlets.java</h1><pre class="source lang-java linenums">package web.taskAPI.servlets;
+
+import web.taskAPI.core.dto.User;
+import web.taskAPI.service.UserRepository;
+
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.time.LocalDate;
+
+@WebServlet(name = &quot;UserServlets&quot;, urlPatterns = &quot;/api/user&quot;)
+<span class="nc" id="L16">public class RegistrationServlets extends HttpServlet {</span>
+
+    public static final String REQUEST_LOGIN = &quot;login&quot;;
+    public static final String REQUEST_PASSWORD = &quot;password&quot;;
+    public static final String REQUEST_DATE_OF_BIRTHDAY = &quot;dateOfBirthday&quot;;
+    public static final String REQUEST_FIRST_NAME = &quot;firstName&quot;;
+    public static final String REQUEST_LAST_NAME = &quot;lastName&quot;;
+    public static final String REQUEST_THIRD_NAME = &quot;thirdName&quot;;
+
+
+    @Override
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp
+    ) throws ServletException, IOException {
+<span class="nc" id="L29">        req.setCharacterEncoding(&quot;UTF-8&quot;);</span>
+<span class="nc" id="L30">        String login = req.getParameter(REQUEST_LOGIN);</span>
+<span class="nc" id="L31">        String password = req.getParameter(REQUEST_PASSWORD);</span>
+<span class="nc" id="L32">        String firstName = req.getParameter(REQUEST_FIRST_NAME);</span>
+<span class="nc" id="L33">        String thirdName = req.getParameter(REQUEST_THIRD_NAME);</span>
+<span class="nc" id="L34">        String lastName = req.getParameter(REQUEST_LAST_NAME);</span>
+<span class="nc" id="L35">        LocalDate dateOfBirthday = LocalDate.parse(req.getParameter(REQUEST_DATE_OF_BIRTHDAY));</span>
+
+<span class="nc" id="L37">        User user = new User(login, password, lastName, firstName, thirdName, dateOfBirthday);</span>
+
+<span class="nc" id="L39">        resp.setContentType(&quot;text/html; charset=utf-8&quot;);</span>
+<span class="nc" id="L40">        PrintWriter writer = resp.getWriter();</span>
+<span class="nc" id="L41">        UserRepository userRepository = UserRepository.getInstance();</span>
+        try {
+<span class="nc" id="L43">            userRepository.check(user);</span>
+<span class="nc" id="L44">        } catch (IllegalArgumentException e) {</span>
+<span class="nc" id="L45">            writer.write(e.getMessage());</span>
+<span class="nc" id="L46">        }</span>
+
+
+<span class="nc" id="L49">    }</span>
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>
